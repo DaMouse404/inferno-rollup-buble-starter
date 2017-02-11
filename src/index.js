@@ -1,9 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import Inferno from 'inferno';
 
 import Hello from './components/Hello';
 
-ReactDOM.render(
+Inferno.render(
   <Hello who="World" />,
   document.getElementById("app")
 );
