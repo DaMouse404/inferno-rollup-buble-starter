@@ -1,32 +1,12 @@
-import buble from 'rollup-plugin-buble';
-import uglify from 'rollup-plugin-uglify';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import inject from 'rollup-plugin-inject';
+const uglify = require('rollup-plugin-uglify');
+
+const rollupPlugins = require('./build/rollupPlugins');
+
+const buildRollupPlugins = [uglify()];
 
 export default {
   entry: 'src/index.js',
-  external: [],
-  moduleName: 'inferno-starter',
-  plugins: [
-    buble({
-      jsx: 'createElement',
-      objectAssign: 'Object.assign'
-    }),
-    inject({
-      include: '**/*.js',
-      exclude: 'node_modules/**',
-      modules: {
-        createElement: 'inferno-create-element'
-      }
-    }),
-    nodeResolve({
-      jsnext: true,
-      browser: true
-    }),
-    commonjs(),
-    // uglify()
-  ],
+  dest: 'dist/bundle.js',
   format: 'iife',
-  dest: 'dist/bundle.js'
+  plugins: rollupPlugins.concat(buildRollupPlugins),
 };
